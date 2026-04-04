@@ -13,11 +13,11 @@ const STEPS = ['Event Details', 'Select Auditorium', 'Choose Time Slot', 'Review
 
 // Fallback static auditoriums for if API returns empty
 const STATIC_AUDITORIUMS = [
-    { _id: 'ks', name: 'KS Auditorium', capacity: 1000, resources: { projector: true, mics: 6, ac: true, sound: 'Dolby 5.1' } },
-    { _id: 'apj', name: 'APJ Abdul Kalam Auditorium', capacity: 800, resources: { projector: true, mics: 4, ac: true, sound: 'Stereo' } },
-    { _id: 'bblock', name: 'B Block Seminar Hall', capacity: 200, resources: { projector: true, mics: 2, ac: false, sound: 'Mono' } },
-    { _id: 'vjim', name: 'VJIM Auditorium', capacity: 600, resources: { projector: true, mics: 3, ac: true, sound: 'Stereo' } },
-    { _id: 'newblock', name: 'New Block Auditorium', capacity: 400, resources: { projector: true, mics: 4, ac: true, sound: 'Dolby' } },
+    { _id: '507f1f77bcf86cd799439011', name: 'KS Auditorium', capacity: 1000, resources: { projector: true, mics: 6, ac: true, sound: 'Dolby 5.1' } },
+    { _id: '507f1f77bcf86cd799439012', name: 'APJ Abdul Kalam Auditorium', capacity: 800, resources: { projector: true, mics: 4, ac: true, sound: 'Stereo' } },
+    { _id: '507f1f77bcf86cd799439013', name: 'B Block Seminar Hall', capacity: 200, resources: { projector: true, mics: 2, ac: false, sound: 'Mono' } },
+    { _id: '507f1f77bcf86cd799439014', name: 'VJIM Auditorium', capacity: 600, resources: { projector: true, mics: 3, ac: true, sound: 'Stereo' } },
+    { _id: '507f1f77bcf86cd799439015', name: 'New Block Auditorium', capacity: 400, resources: { projector: true, mics: 4, ac: true, sound: 'Dolby' } },
 ];
 
 const generateLetterTemplate = (user, auditorium, form) => {
@@ -133,17 +133,24 @@ const BookingPage = () => {
     const handleSubmit = async () => {
         setLoading((l) => ({ ...l, submit: true }));
         try {
+            const timeSlotToSubmit = typeof selectedSlot === 'string' 
+                ? selectedSlot 
+                : selectedSlot?.timeSlot || selectedSlot;
+            
             await bookingService.create({
                 auditoriumId: selectedAuditorium._id,
                 title: form.title,
                 category: form.category,
                 date: form.date,
-                timeSlot: selectedSlot,
+                timeSlot: timeSlotToSubmit,
             });
             toast.success('Booking submitted! Awaiting HOD approval 🎉');
             navigate('/dashboard/student');
         } catch (err) {
-            toast.error(err.response?.data?.message || 'Booking failed');
+            console.error('BOOKING SUBMIT ERROR:', err);
+            console.error('RESPONSE DATA:', err.response?.data);
+            const errorMsg = err.response?.data?.message || err.message || 'Booking failed';
+            toast.error(errorMsg);
         } finally {
             setLoading((l) => ({ ...l, submit: false }));
         }
@@ -262,7 +269,10 @@ const BookingPage = () => {
                                     <span><strong>Auditorium:</strong> {selectedAuditorium?.name}</span>
                                     <span><strong>Capacity:</strong> {selectedAuditorium?.capacity?.toLocaleString()}</span>
                                     <span><strong>Date:</strong> {form.date}</span>
-                                    <span><strong>Slot:</strong> {selectedSlot}</span>
+                                    <span><strong>Time:</strong> {typeof selectedSlot === 'string' ? selectedSlot : selectedSlot?.timeSlot || selectedSlot}</span>
+                                    {typeof selectedSlot === 'object' && selectedSlot?.duration && (
+                                        <span><strong>Duration:</strong> {selectedSlot.duration} hours</span>
+                                    )}
                                 </div>
                             </div>
 

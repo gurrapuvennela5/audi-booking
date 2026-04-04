@@ -30,6 +30,11 @@ const bookingSchema = new mongoose.Schema(
             type: String,
             required: [true, 'Time slot is required'],
         },
+        duration: {
+            type: Number,
+            default: 2,
+            description: 'Duration in hours',
+        },
         status: {
             type: String,
             enum: ['PENDING_HOD', 'APPROVED_HOD', 'APPROVED_ADMIN', 'REJECTED'],

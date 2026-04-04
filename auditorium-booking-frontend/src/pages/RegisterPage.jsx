@@ -31,9 +31,9 @@ const RegisterPage = () => {
             email: form.email,
             password: form.password,
             role,
-            ...(role === 'student' && { branch: form.branch, rollNo: form.rollNo, year: parseInt(form.year) || undefined }),
+            ...(role === 'student' && { phone: form.phone, branch: form.branch, rollNo: form.rollNo, year: parseInt(form.year) || undefined }),
             ...(role === 'hod' && { department: form.department, facultyId: form.facultyId }),
-            ...(role === 'admin' && { employeeId: form.employeeId }),
+            ...(role === 'admin' && { employeeId: form.employeeId, officeLocation: form.officeLocation }),
         };
         try {
             const res = await authService.register(payload);
@@ -43,7 +43,7 @@ const RegisterPage = () => {
             const routes = { student: '/dashboard/student', hod: '/dashboard/hod', admin: '/dashboard/admin' };
             navigate(routes[user.role] || '/');
         } catch (err) {
-            const msg = err.response?.data?.message || err.response?.data?.errors?.[0]?.msg || 'Registration failed';
+            const msg = err.response?.data?.message || err.response?.data?.errors?.[0]?.msg || err.message || 'Registration failed';
             toast.error(msg);
         } finally {
             setLoading(false);

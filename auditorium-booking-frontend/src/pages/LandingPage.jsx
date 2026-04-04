@@ -72,7 +72,7 @@ const LandingPage = () => {
                 <div className="absolute inset-0 bg-gradient-to-b from-gray-900/80 via-gray-900/60 to-gray-900/90" />
 
                 <div className="relative z-10 text-center px-4 max-w-4xl mx-auto animate-slide-up">
-                    <div className="inline-flex items-center gap-2 bg-brand-600/20 border border-brand-400/30 text-brand-300 text-xs font-medium px-4 py-1.5 rounded-full mb-6 backdrop-blur-sm">
+                    <div className="inline-flex items-center gap-2 bg-brand-600/20 border border-brand-400/30 text-white text-xs font-medium px-4 py-1.5 rounded-full mb-6 backdrop-blur-sm">
                         <span className="w-1.5 h-1.5 bg-brand-400 rounded-full animate-pulse" />
                         VNRVJIET Official Booking Platform
                     </div>
@@ -91,14 +91,11 @@ const LandingPage = () => {
 
                     <div className="flex flex-wrap gap-3 justify-center mb-12">
                         <button onClick={handleGetStarted} className="btn-primary px-8 py-3 text-base flex items-center gap-2">
-                            Get Started Now
+                            Get Started
                             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                             </svg>
                         </button>
-                        <a href="#manual" className="btn-secondary px-8 py-3 text-base text-white border-white/30 hover:bg-white/10">
-                            View System Manual
-                        </a>
                     </div>
 
                     {/* Stats */}
@@ -170,7 +167,7 @@ const LandingPage = () => {
                     <p className="text-brand-200 mb-8 text-sm">Create your account and start booking auditoriums in minutes.</p>
                     <div className="flex gap-3 justify-center flex-wrap">
                         <Link to="/register" className="bg-white text-brand-600 font-semibold px-8 py-3 rounded-xl hover:bg-brand-50 transition-colors shadow-md">
-                            Get Started Free
+                            Get Started
                         </Link>
                         <Link to="/login" className="border-2 border-white/30 text-white font-semibold px-8 py-3 rounded-xl hover:bg-white/10 transition-colors">
                             Sign In

@@ -16,7 +16,7 @@ const register = async (req, res) => {
         return res.status(400).json({ errors: errors.array() });
     }
 
-    const { name, email, password, role, branch, rollNo, year, department, facultyId, employeeId } =
+    const { name, email, password, role, branch, rollNo, year, department, facultyId, employeeId, phone, officeLocation } =
         req.body;
 
     try {
@@ -36,6 +36,8 @@ const register = async (req, res) => {
             department,
             facultyId,
             employeeId,
+            phone,
+            officeLocation,
         });
 
         res.status(201).json({

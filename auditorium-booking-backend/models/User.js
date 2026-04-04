@@ -34,11 +34,13 @@ const userSchema = new mongoose.Schema(
         branch: { type: String },
         rollNo: { type: String },
         year: { type: Number },
+        phone: { type: String },
         // HOD/Faculty-specific fields
         department: { type: String },
         facultyId: { type: String },
         // Admin-specific fields
         employeeId: { type: String },
+        officeLocation: { type: String },
     },
     { timestamps: true }
 );
